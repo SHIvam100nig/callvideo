@@ -957,6 +957,77 @@ button {
     transform: rotate(180deg);
 }
 
+/* --- Mobile Meeting Info Bar --- */
+.mobile-info-bar {
+    display: none;
+    /* Hidden by default on desktop */
+}
+
+@media (max-width: 768px) {
+    .mobile-info-bar {
+        display: flex;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        /* Align let */
+        right: 80px;
+        /* Leave space for Flip Camera button on right */
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 5px 10px;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 200;
+        height: 44px;
+        /* Match flip camera height approx */
+    }
+
+    .mobile-info-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: white;
+        overflow: hidden;
+    }
+
+    .mobile-id-label {
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+    }
+
+    .mobile-icon-btn {
+        background: transparent;
+        color: white;
+        border: none;
+        padding: 5px;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-whatsapp-btn {
+        background: #25D366;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+    }
+}
+
+
 /* --- Chat UI Styles (Global/Desktop) --- */
 .chat-panel {
     position: absolute;
