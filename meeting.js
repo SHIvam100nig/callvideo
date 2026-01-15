@@ -20,6 +20,11 @@ const displayMeetingId = document.getElementById('display-meeting-id');
 const meetingTimer = document.getElementById('meeting-timer');
 const toastContainer = document.getElementById('toast-container');
 
+// Mobile UI Elements
+const mobileMeetingId = document.getElementById('mobile-meeting-id');
+const mobileCopyBtn = document.getElementById('mobile-copy-btn');
+const mobileWhatsAppBtn = document.getElementById('mobile-whatsapp-btn');
+
 // Controls
 const btnMic = document.getElementById('btn-mic');
 const btnVideo = document.getElementById('btn-video');
@@ -99,7 +104,10 @@ async function startMeeting(asHost, id) {
         if (asHost) {
             hostId = id;
             myPeerId = id;
+            hostId = id;
+            myPeerId = id;
             displayMeetingId.innerText = id;
+            if (mobileMeetingId) mobileMeetingId.innerText = id;
             initPeer(id);
 
             // Show WhatsApp Share Button for Host
@@ -108,12 +116,20 @@ async function startMeeting(asHost, id) {
             waBtn.onclick = () => {
                 const url = `${location.protocol}//${location.host}${location.pathname.replace('index.html', '')}?room=${id}`;
                 const msg = `Join my secure video meeting: ${url}`;
-                window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+
+                // APK/Mobile Support: Use custom scheme
+                if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    window.location.href = `whatsapp://send?text=${encodeURIComponent(msg)}`;
+                } else {
+                    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+                }
             };
 
         } else {
             hostId = id;
+            hostId = id;
             displayMeetingId.innerText = id;
+            if (mobileMeetingId) mobileMeetingId.innerText = id;
             initPeer(null);
         }
 
@@ -766,6 +782,43 @@ displayMeetingId.addEventListener('click', () => {
         showToast('ID Copied: ' + id);
     });
 });
+
+// Mobile Copy Logic
+if (mobileCopyBtn) {
+    mobileCopyBtn.addEventListener('click', () => {
+        const id = mobileMeetingId.innerText;
+        const url = `${location.protocol}//${location.host}${location.pathname.replace('index.html', '')}?room=${id}`;
+
+        navigator.clipboard.writeText(url).then(() => {
+            showToast('Link Copied!', 'info');
+        }).catch(() => {
+            navigator.clipboard.writeText(id);
+            showToast('ID Copied: ' + id);
+        });
+    });
+}
+
+// Mobile WhatsApp Share Logic
+if (mobileWhatsAppBtn) {
+    mobileWhatsAppBtn.addEventListener('click', () => {
+        const id = mobileMeetingId.innerText;
+        // Check if ID is valid (not "...")
+        if (!id || id === '...') {
+            showToast('Join a meeting first', 'warning');
+            return;
+        }
+
+        const url = `${location.protocol}//${location.host}${location.pathname.replace('index.html', '')}?room=${id}`;
+        const msg = `Join my secure video meeting: ${url}`;
+
+        // APK/Mobile Support
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            window.location.href = `whatsapp://send?text=${encodeURIComponent(msg)}`;
+        } else {
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+    });
+}
 
 // --- Chat Logic (No Files) ---
 
