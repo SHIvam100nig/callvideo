@@ -1,0 +1,1154 @@
+:root {
+    --bg-dark: #0a0a12;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-primary: #00f3ff;
+    --neon-secondary: #bc13fe;
+    --neon-danger: #ff2a6d;
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 25%);
+    font-family: var(--font-family);
+    color: var(--text-main);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-family: inherit;
+}
+
+/* Utilities */
+.hidden {
+    display: none !important;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-panel-sm {
+    background: rgba(20, 20, 30, 0.6);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Landing Overlay */
+#landing-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    padding: 40px;
+    text-align: center;
+    z-index: 100;
+}
+
+.neon-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-shadow: 0 0 10px var(--neon-primary), 0 0 20px var(--neon-primary);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#meeting-id-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#meeting-id-input:focus {
+    border-color: var(--neon-primary);
+    box-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+    outline: none;
+}
+
+.neon-btn {
+    background: transparent;
+    border: 1px solid var(--neon-primary);
+    color: var(--neon-primary);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 243, 255, 0.2);
+}
+
+.neon-btn:hover {
+    background: var(--neon-primary);
+    color: black;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
+}
+
+.neon-btn.secondary {
+    border-color: var(--neon-secondary);
+    color: var(--neon-secondary);
+    box-shadow: 0 0 5px rgba(188, 19, 254, 0.2);
+}
+
+.neon-btn.secondary:hover {
+    background: var(--neon-secondary);
+    color: white;
+    box-shadow: 0 0 15px rgba(188, 19, 254, 0.6);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--glass-border);
+}
+
+.divider span {
+    margin: 0 10px;
+}
+
+
+/* Main Meeting Container */
+#meeting-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: #202124;
+    /* Google Meet Background */
+}
+
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+    border: none;
+}
+
+.logo {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: white;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.meeting-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+}
+
+.code-text {
+    background: transparent;
+    padding: 0;
+    border: none;
+    font-family: inherit;
+    font-weight: 500;
+    color: white;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: #25D366;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+    border-radius: 50%;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.video-grid {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    padding-bottom: 100px;
+    /* Space for control bar */
+    width: 100%;
+    height: 100%;
+    /* Space for control bar */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Prevent scrolling, force fit */
+}
+
+/* Presentation Mode Layout */
+.video-grid.presentation-mode {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    /* Big Stage + Sidebar */
+    grid-template-rows: 100%;
+    gap: 15px;
+    padding: 15px;
+    padding-bottom: 90px;
+    align-content: stretch;
+    justify-content: stretch;
+    align-items: start;
+    overflow: hidden;
+    /* Main container consistent */
+}
+
+.video-grid.presentation-mode .video-tile {
+    /* Sidebar items */
+    width: 100%;
+    height: 180px;
+    /* Fixed height for sidebar items */
+    aspect-ratio: 16/9;
+    flex: none;
+    /* Reset flex */
+}
+
+.video-grid.presentation-mode .video-tile.presenter {
+    /* Presenter Item */
+    grid-column: 1;
+    grid-row: 1 / span 10;
+    /* Take full height */
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    /* Override the default max-height */
+    aspect-ratio: auto;
+    /* Allow filling */
+    object-fit: contain;
+    z-index: 5;
+}
+
+.video-grid.presentation-mode .video-tile.presenter video {
+    object-fit: contain;
+    /* Don't crop screen share */
+    background: #202124;
+}
+
+/* Ensure sidebar scrolls if too many items, BUT we used grid... 
+   Let's wrap the sidebar items in an implicit 2nd column 
+   Actually pure grid with auto placement is tricky for "1 big + rest small".
+   Trick: Use float or flex order? 
+   No, Grid Auto Flow logic:
+   We forced Presenter to Column 1.
+   Everything else naturally goes to Column 2? No, they might fill empty spots.
+   Setting .video-tile { grid-column: 2; } for non-presenters is safer.
+*/
+.video-grid.presentation-mode .video-tile:not(.presenter) {
+    grid-column: 2;
+    /* We need to allow them to stack vertically */
+}
+
+/* To allow vertical stacking in Col 2, we actually need the grid to have implicit rows */
+.video-grid.presentation-mode {
+    grid-auto-rows: min-content;
+    /* Let rows add up */
+    overflow-y: auto;
+    /* Allow scrolling if sidebar is long */
+}
+
+/* Re-fix main container to NOT scroll the big video off screen? 
+   Ideally we want the sidebar to scroll independently?
+   That requires a sub-wrapper. 
+   Simple CSS Grid solution: Main grid scrolls. 
+   Let's stick to simple first.
+*/
+
+/* Video Tile */
+.video-tile {
+    background: #3c4043;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border: none;
+    transition: all 0.3s ease;
+
+    /* Smart Sizing: Default to trying to reach a reasonable size but not overflow */
+    flex: 1 1 400px;
+    aspect-ratio: 16/9;
+    max-width: 100%;
+    max-height: calc(100vh - 120px);
+    /* Allows shrinking if needed */
+    min-width: 200px;
+    object-fit: cover;
+}
+
+/* Local user video can be mirrored */
+.video-tile.is-local video {
+    transform: scaleX(-1);
+}
+
+.video-tile video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-tile .name-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    backdrop-filter: blur(4px);
+}
+
+.video-tile .audio-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.kick-btn {
+    position: absolute;
+    top: 10px;
+    right: 45px;
+    /* Left of audio indicator */
+    background: rgba(255, 42, 109, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0;
+    /* Hidden by default */
+    transition: opacity 0.2s;
+    z-index: 5;
+}
+
+.video-tile:hover .kick-btn {
+    opacity: 1;
+    /* Show on hover */
+}
+
+/* Speaking active state */
+.video-tile.speaking {
+    border-color: var(--neon-primary);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+}
+
+/* Control Bar - Google Meet Style */
+.control-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #202124;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Space out the 3 sections */
+    padding: 0 24px;
+    z-index: 50;
+    border-top: none;
+    backdrop-filter: none;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    color: white;
+    font-weight: 500;
+}
+
+.footer-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    flex: 1;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    flex: 1;
+    color: white;
+}
+
+.timer {
+    font-size: 1rem;
+    position: static;
+    /* Reset position */
+    transform: none;
+}
+
+.separator {
+    color: var(--text-muted);
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #3c4043;
+    /* Google Dark Grey */
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border: none;
+    box-shadow: none;
+}
+
+.control-btn:hover {
+    background: #4a4e52;
+    transform: none;
+}
+
+.control-btn.active {
+    background: #3c4043;
+    color: white;
+    /* In Google Meet, Mic ON is gray/transparent. Mic OFF is Red. */
+}
+
+/* Specific Google Meet logic: 
+   If class is 'active' (meaning ON), we want neutral.
+   If class is NOT 'active' (meaning OFF/Muted), we want red. 
+   WAIT: The previous logic was toggle class .active = ON. 
+   Let's keep that but style accordingly.
+*/
+
+.control-btn.active {
+    background: #3c4043;
+    color: white;
+    box-shadow: none;
+}
+
+/* When OFF (class removed) -> RED */
+.control-btn:not(.active) {
+    background: #ea4335;
+    color: white;
+}
+
+/* Special buttons that don't have on/off state like End Call */
+.control-btn.danger {
+    background: #ea4335;
+    width: 56px;
+    border-radius: 28px;
+    /* High pill */
+    padding: 0 20px;
+}
+
+.control-btn.danger:hover {
+    background: #d93025;
+}
+
+/* Secondary small buttons in Right Footer */
+.control-btn.sm {
+    background: transparent;
+    width: auto;
+    height: auto;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.control-btn.sm:hover {
+    background: transparent;
+    color: #8ab4f8;
+    /* Google Blue Hover */
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.control-btn.active {
+    background: var(--neon-primary);
+    /* Or a "normal" state color */
+    color: black;
+}
+
+/* When "active" class is REMOVED, it means muted/off, so let's flip logic or naming.
+   Common UI: 
+   - Button Normal (Dark/Red) = Off
+   - Button Active (Color) = On
+   Let's stick to: "active" means enabled/on. 
+   When muted (class removed), it looks "off".
+*/
+.control-btn {
+    background: #FF4444;
+    /* Default to red/off state base */
+    color: white;
+}
+
+.control-btn.active {
+    background: #333;
+    /* Dark/Normal state when feature is ON? Or vice versa? */
+    /* Wait, usually: 
+       Mic ON = Dark/Transparent/Neutral
+       Mic OFF = RED
+    */
+    background: rgba(255, 255, 255, 0.15);
+    /* Neutral ON state */
+    color: white;
+}
+
+.control-btn:not(.active) {
+    background: var(--neon-danger);
+    box-shadow: 0 0 10px rgba(255, 42, 109, 0.4);
+}
+
+.control-btn.danger {
+    background: var(--neon-danger);
+    width: 60px;
+    height: 40px;
+    border-radius: 8px;
+    /* Pill shape for hangup */
+}
+
+.control-btn.danger:hover {
+    background: #d00040;
+}
+
+/* Toast */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.toast {
+    background: rgba(0, 0, 0, 0.8);
+    border-left: 3px solid var(--neon-primary);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Permission Helper Modal */
+#permission-modal {
+    background: rgba(0, 0, 0, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.perm-instruction {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 20px;
+    max-width: 300px;
+    line-height: 1.6;
+}
+
+.arrow-up {
+    font-size: 3rem;
+    color: var(--neon-danger);
+    animation: bounce 1s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.modal-btn {
+    margin-top: 20px;
+    background: white;
+    color: black;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.modal-btn:hover {
+    background: #eee;
+}
+
+/* WhatsApp Button */
+.whatsapp-btn {
+    background: #25D366;
+    color: white;
+    border: none;
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.02);
+}
+
+/* --- WhatsApp Style Mobile Layout (Max-width 768px for now) --- */
+/* Recording Active State */
+#btn-record.active {
+    background: #ff2a6d;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Remove padding from container to allow full bleed */
+    #meeting-container {
+        height: 100vh;
+        height: 100dvh;
+    }
+
+    .video-grid {
+        display: block;
+        /* Disable grid */
+        padding: 0;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Generic Video Tile Reset */
+    .video-tile {
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        background: black;
+    }
+
+    /* REMOTE VIDEO: Full Screen */
+    /* Select any video tile that is NOT local */
+    .video-tile:not(.is-local) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        /* Background layer */
+    }
+
+    .video-tile:not(.is-local) video {
+        object-fit: cover;
+    }
+
+    /* LOCAL VIDEO: Picture-in-Picture (Floating) */
+    .video-tile.is-local {
+        position: fixed;
+        bottom: 110px;
+        /* Above control bar */
+        right: 15px;
+        width: 110px;
+        height: 150px;
+        /* Portrait aspect for user video usually */
+        z-index: 10;
+        /* Float on top */
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        aspect-ratio: auto;
+        /* Override 16/9 */
+    }
+
+    .video-tile.is-local video {
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    /* Hide name tags on mobile for cleaner look, or style them smaller */
+    .video-tile .name-tag {
+        display: none;
+    }
+
+    /* Keep audio indicator small */
+    .video-tile .audio-indicator {
+        top: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+    }
+
+    /* Top Bar Floating transparently on top */
+    .top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+        border-bottom: none;
+        backdrop-filter: none;
+        pointer-events: none;
+        /* Let clicks pass through to video */
+        z-index: 20;
+    }
+
+    .top-bar * {
+        pointer-events: auto;
+        /* Re-enable for buttons */
+    }
+
+    /* Control Bar Floating at bottom */
+    .control-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        background: #202124;
+        flex-direction: column;
+        /* Stack for mobile */
+        gap: 10px;
+        border-radius: 0;
+        justify-content: flex-end;
+    }
+
+    .footer-left {
+        display: none;
+        /* Hide ID/Time on mobile footer to save space */
+    }
+
+    .footer-center {
+        width: 100%;
+        justify-content: space-evenly;
+        gap: 5px;
+    }
+
+    .footer-right {
+        display: none;
+        /* Hide secondary options on mobile for now */
+    }
+
+    /* Except we need Flip Camera - Now Top Level */
+    #btn-flip-camera {
+        display: flex !important;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 200;
+        /* High z-index */
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        color: white;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    #btn-flip-camera:active {
+        transform: rotate(180deg);
+        background: var(--neon-primary);
+    }
+
+    .control-btn {
+        width: 45px;
+        height: 45px;
+    }
+
+    /* Mobile Chat Drawer (Bottom Sheet) */
+    #chat-panel {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 50vh;
+        /* Occupy 50% of screen as requested */
+        border-radius: 25px 25px 0 0;
+        /* Rounded top */
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translateY(100%);
+        /* Start hidden below screen */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 200;
+        /* Above everything */
+        background: #1e1e1e;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    #chat-panel.open {
+        transform: translateY(0);
+        /* Slide up */
+    }
+
+    #close-chat-btn {
+        display: block !important;
+        /* Ensure close button is visible */
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: transparent;
+        color: white;
+        font-size: 1.5rem;
+    }
+}
+
+/* Flip Camera Button Base Styles */
+#btn-flip-camera {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: none;
+    /* Hidden by default (Desktop) */
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    pointer-events: auto;
+    /* Ensure clickable */
+}
+
+#btn-flip-camera:active {
+    transform: rotate(180deg);
+}
+
+/* --- Chat UI Styles (Global/Desktop) --- */
+.chat-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* Full height sidebar on desktop */
+    width: 350px;
+    background: rgba(10, 10, 15, 0.95);
+    border-left: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+    transition: transform 0.3s ease;
+}
+
+.chat-panel.hidden {
+    /* Instead of display:none, we slide it out */
+    transform: translateX(100%);
+    display: flex !important;
+    /* Override hidden helper for animation */
+}
+
+/* On desktop, hidden really means moved right */
+@media (min-width: 769px) {
+    .chat-panel.hidden {
+        transform: translateX(100%);
+    }
+
+    .chat-panel:not(.hidden) {
+        transform: translateX(0);
+    }
+}
+
+.chat-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.chat-header h3 {
+    color: var(--neon-primary);
+    margin: 0;
+}
+
+#close-chat-btn {
+    background: transparent;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 85%;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.message.my-message {
+    align-self: flex-end;
+    background: var(--neon-primary);
+    color: black;
+    border-bottom-right-radius: 2px;
+}
+
+.message.peer-message {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-bottom-left-radius: 2px;
+}
+
+.message.system-msg {
+    align-self: center;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 4px 8px;
+}
+
+.sender-name {
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+    opacity: 0.7;
+    font-weight: bold;
+    display: block;
+}
+
+.file-attachment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 6px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.image-preview img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Chat Message Copy Button */
+.message-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.copy-btn {
+    background: transparent;
+    border: none;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+}
+
+.copy-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-input-area {
+    padding: 15px;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#chat-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+}
+
+#chat-input:focus {
+    border-color: var(--neon-primary);
+    outline: none;
+}
+
+.chat-input-area button {
+    background: transparent;
+    color: var(--neon-primary);
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.chat-input-area button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--neon-danger);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 5px;
+    border-radius: 10px;
+    min-width: 16px;
+    text-align: center;
+}

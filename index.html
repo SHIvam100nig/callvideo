@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stegure Meeting - Secure Conference</title>
+    <link rel="stylesheet" href="meeting.css?v=chat-added">
+    <!-- PeerJS CDN -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <!-- Phosphor Icons for modern UI icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <!-- Landing / Join Overlay -->
+    <div id="landing-overlay" class="glass-panel">
+        <h1 class="neon-text">STEGURE MEETING</h1>
+        <p class="subtitle">Secure, Serverless</p>
+
+        <div class="input-group">
+            <input type="text" id="meeting-id-input" placeholder="Enter Meeting ID" autocomplete="off">
+            <button id="join-btn" class="neon-btn">JOIN MEETING</button>
+        </div>
+
+        <div class="divider"><span>OR</span></div>
+
+        <button id="create-btn" class="neon-btn secondary">CREATE NEW MEETING</button>
+        <!-- Invite Friend Button (Client-side) -->
+        <button id="whatsapp-share-btn" class="whatsapp-btn hidden">
+            <i class="ph ph-whatsapp-logo"></i> Invite via WhatsApp
+        </button>
+    </div>
+
+    <!-- Active Meeting Interface -->
+    <div id="meeting-container" class="hidden">
+        <!-- Floating Flip Camera Button (Mobile Only) -->
+        <button id="btn-flip-camera" title="Flip Camera" style="display: none;">
+            <i class="ph ph-arrows-clockwise"></i>
+        </button>
+
+        <!-- Video Grid (Now Main Area) -->
+        <main id="video-grid" class="video-grid">
+            <!-- Videos will be injected here -->
+            <template id="video-tile-template">
+                <div class="video-tile">
+                    <video autoplay playsinline></video>
+                    <div class="name-tag">Peer</div>
+                    <div class="audio-indicator"><i class="ph ph-microphone"></i></div>
+                </div>
+            </template>
+        </main>
+
+        <!-- Google Meet Style Bottom Info/Control Bar -->
+        <div class="control-bar">
+            <!-- Left: Meeting Info & Clock -->
+            <div class="footer-left">
+                <div class="timer" id="meeting-timer">00:00</div>
+                <div class="separator">|</div>
+                <div class="meeting-id-display">
+                    <span id="display-meeting-id" class="code-text" title="Click to Copy">...</span>
+                </div>
+            </div>
+
+            <!-- Center: Main Controls -->
+            <div class="footer-center">
+                <button id="btn-mic" class="control-btn active" title="Toggle Microphone">
+                    <i class="ph ph-microphone"></i>
+                </button>
+                <button id="btn-video" class="control-btn active" title="Toggle Camera">
+                    <i class="ph ph-video"></i>
+                </button>
+                <button id="btn-chat" class="control-btn" title="Open Chat">
+                    <i class="ph ph-chat-teardrop-text"></i>
+                    <span id="unread-badge" class="badge hidden">0</span>
+                </button>
+                <button id="btn-screen" class="control-btn" title="Share Screen">
+                    <i class="ph ph-screencast"></i>
+                </button>
+                <button id="btn-end" class="control-btn danger" title="End Call">
+                    <i class="ph ph-phone-disconnect"></i>
+                </button>
+            </div>
+
+            <!-- Right: Secondary Options -->
+            <div class="footer-right">
+                <button id="btn-info" class="control-btn sm" title="Meeting Details">
+                    <i class="ph ph-info"></i>
+                </button>
+
+                <button id="btn-activities" class="control-btn sm" title="Activities">
+                    <i class="ph ph-shapes"></i>
+                </button>
+                <button id="btn-record" class="control-btn sm" title="Record Meeting">
+                    <i class="ph ph-record"></i>
+                </button>
+                <button id="btn-pip" class="control-btn sm" title="Picture in Picture">
+                    <i class="ph ph-picture-in-picture"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Panel (Hidden by default) -->
+        <div id="chat-panel" class="chat-panel hidden">
+            <div class="chat-header">
+                <h3>In-call messages</h3>
+                <button id="close-chat-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message system-msg">Messages can only be seen by people in the call and are deleted when the
+                    call ends.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Send a message" autocomplete="off">
+                <button id="btn-send"><i class="ph ph-paper-plane-right"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="meeting.js?v=connectivity-fix"></script>
+</body>
+
+</html>
